@@ -39,18 +39,18 @@ class ToroidNeighbourGuesser extends Neighbour2DGuesser {
 	}
 
 	private function getTransformedXCoordinate( $coordinate, $offset ) {
-		$xRange = range( $this->xmin, $this->xmax );
-		$threeXRange = array_merge( $xRange, $xRange, $xRange );
-		$firstOccurence = array_search( $coordinate, $threeXRange );
-		unset( $threeXRange[$firstOccurence] );
-		return $threeXRange[ array_search( $coordinate, $threeXRange ) + $offset ];
+		return $this->getCoordinateWithOffset( $this->xmin, $this->xmax, $coordinate, $offset );
 	}
 
 	private function getTransformedYCoordinate( $coordinate, $offset ) {
-		$yRange = range( $this->ymin, $this->ymax );
-		$threeYRange = array_merge( $yRange, $yRange, $yRange );
-		$firstOccurence = array_search( $coordinate, $threeYRange );
-		unset( $threeYRange[$firstOccurence] );
-		return $threeYRange[ array_search( $coordinate, $threeYRange ) + $offset ];
+		return $this->getCoordinateWithOffset( $this->ymin, $this->ymax, $coordinate, $offset );
 	}
+
+	private function getCoordinateWithOffset( $min, $max, $coordinate, $offset ) {
+		$range = range( $this->ymin, $this->ymax );
+		$rangeRepeatedThreeTimes = array_merge( $range, $range, $range );
+		$coordinateKeys = array_keys( $rangeRepeatedThreeTimes, $coordinate );
+		return $rangeRepeatedThreeTimes[$coordinateKeys[1] + $offset];
+	}
+
 }
