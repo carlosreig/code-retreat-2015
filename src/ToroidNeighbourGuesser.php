@@ -47,7 +47,7 @@ class ToroidNeighbourGuesser extends Neighbour2DGuesser {
 	}
 
 	private function getCoordinateWithOffset( $min, $max, $coordinate, $offset ) {
-		$range = range( $this->ymin, $this->ymax );
+		$range = range( $min, $max );
 		$rangeRepeatedThreeTimes = array_merge( $range, $range, $range );
 		$coordinateKeys = array_keys( $rangeRepeatedThreeTimes, $coordinate );
 		return $rangeRepeatedThreeTimes[$coordinateKeys[1] + $offset];
